@@ -1,3 +1,13 @@
+// get data collection
+
+
+db.collection('guides').get().then(snapshot => {
+    setupGuides(snapshot.docs)
+        console.log(snapshot.docs)
+    })
+  
+
+
 // listen auth status change 'return null if user logout'
 
 auth.onAuthStateChanged(user => {
@@ -8,7 +18,7 @@ auth.onAuthStateChanged(user => {
         }
     })
     // signup
-const signupForm = document.querySelector('#signup-form');
+const signupForm = document.querySelector('#signup-form ')
 console.log(signupForm)
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -59,3 +69,7 @@ loginForm.addEventListener('submit', (e) => {
     loginForm.reset()
 
 })
+
+
+
+
