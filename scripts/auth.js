@@ -10,9 +10,11 @@ auth.onAuthStateChanged(user => {
 db.collection('guides').get().then(snapshot => {
     setupGuides(snapshot.docs)
         console.log(snapshot.docs)
+        seupUI(user)
     })
         } else {
             setupGuides([])
+            seupUI()
         }
     })
     // signup

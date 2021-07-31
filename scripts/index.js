@@ -1,7 +1,22 @@
-
-
 const guidesList = document.querySelector('.guides');
+const loginLink = document.querySelectorAll('.logged-in');
+const logoutLink = document.querySelectorAll('.logged-out');
 console.log(guidesList)
+
+const seupUI = function(user){
+    if(user){
+
+        loginLink.forEach(item => item.style.display = 'block');
+        logoutLink.forEach(item => item.style.display = 'none');
+    }
+
+    else{
+        loginLink.forEach(item => item.style.display = 'none');
+        logoutLink.forEach(item => item.style.display = 'block');
+    }
+    }
+
+
 const setupGuides = (data) => {
 
     if(data.length){
