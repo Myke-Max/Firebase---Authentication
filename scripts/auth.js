@@ -1,10 +1,4 @@
-// get data collection
 
-
-db.collection('guides').get().then(snapshot => {
-    setupGuides(snapshot.docs)
-        console.log(snapshot.docs)
-    })
   
 
 
@@ -12,9 +6,13 @@ db.collection('guides').get().then(snapshot => {
 
 auth.onAuthStateChanged(user => {
         if (user) {
-            console.log('login', user)
+           // get data collection
+db.collection('guides').get().then(snapshot => {
+    setupGuides(snapshot.docs)
+        console.log(snapshot.docs)
+    })
         } else {
-            console.log('logout')
+            setupGuides([])
         }
     })
     // signup
