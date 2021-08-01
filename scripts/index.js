@@ -1,10 +1,21 @@
 const guidesList = document.querySelector('.guides');
 const loginLink = document.querySelectorAll('.logged-in');
 const logoutLink = document.querySelectorAll('.logged-out');
-console.log(guidesList)
+const accountDetail = document.querySelector('.account-details')
 
-const seupUI = function(user){
+
+const setupUI = function(user){
     if(user){
+        // account info
+        db.collection('users').doc(user.uid).get().then(doc =>{
+            const html = `
+            <div>Logged in as ${user.email}</div>
+            <div>${doc.data().bio}
+            `
+            accountDetail.innerHTML = html
+        }) 
+
+        
 
         loginLink.forEach(item => item.style.display = 'block');
         logoutLink.forEach(item => item.style.display = 'none');
@@ -13,6 +24,7 @@ const seupUI = function(user){
     else{
         loginLink.forEach(item => item.style.display = 'none');
         logoutLink.forEach(item => item.style.display = 'block');
+        accountDetail.innerHTML = ''
     }
     }
 
@@ -29,10 +41,10 @@ const setupGuides = (data) => {
             <li> 
             <div class = "collapsible-header grey lighten-4" >
              ${guide.title}
-             < /div>
+             </div>
              <div class = "collapsible-body white" >
-              < span > ${guide.content}< /span>
-             </div >
+              <span> ${guide.content}</span>
+             </div>
              </li>
             `
             html += li

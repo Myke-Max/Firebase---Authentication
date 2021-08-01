@@ -1,20 +1,21 @@
 
-  
-
-
 // listen auth status change 'return null if user logout'
 
 auth.onAuthStateChanged(user => {
+    console.log(user)
         if (user) {
            // get data collection
-db.collection('guides').get().then(snapshot => {
-    setupGuides(snapshot.docs)
-        console.log(snapshot.docs)
-        seupUI(user)
-    })
+db.collection('guides').onSnapshot(snapshot => {
+    setupGuides(snapshot.docs);
+    console.log(snapshot);
+        console.log(snapshot.docs);
+        setupUI(user);
+    },err =>{
+        console.log(err.message)
+    });
         } else {
             setupGuides([])
-            seupUI()
+            setupUI()
         }
     })
     // signup
@@ -31,10 +32,15 @@ signupForm.addEventListener('submit', (e) => {
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(credential => {
         // console.log(credential)
+        return db.collection('users').doc(credential.user.uid).set({
+            bio:signupForm['signup-bio'].value
+        })
+        
+    }).then(() => {
         const modal = document.querySelector('#modal-signup')
-            // console.log(modal)
-        M.Modal.getInstance(modal).close()
-        signupForm.reset()
+        // console.log(modal)
+    M.Modal.getInstance(modal).close()
+    signupForm.reset()
     })
 });
 
@@ -70,14 +76,15 @@ loginForm.addEventListener('submit', (e) => {
 
 })
 
-const createGuideForm = document.querySelector('.create-form');
+const createGuideForm = document.querySelector('#create-form');
+console.log(createGuideForm)
 
 createGuideForm.addEventListener('submit', function(e){
 e.preventDefault()
 
-    db.collection(guides).add({
-        title:createGuideForm[title].value,
-        content:createGuideForm[content].value
+    db.collection('guides').add({
+        title:createGuideForm['title'].value,
+        content:createGuideForm['content'].value
     }).then(() => {
         // close and clear form
 
