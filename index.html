@@ -35,6 +35,11 @@
       </ul>
     </div>
   </nav>
+  <!-- ADMIN ACTIONS(need to pay) --> 
+  <!-- <form class="center-align admin-actions" style="margin: 40px auto; max-width: 300px;">
+    <input type="email" placeholder="User email" id="admin-email" required />
+    <button class="btn-small yellow darken-2 z-depth-0">Make admin</button>
+  </form> -->
 
   <!-- SIGN UP MODAL -->
   <div id="modal-signup" class="modal">
@@ -54,6 +59,7 @@
           <label for="signup-bio">One Line Bio</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+        <p class="error pink-text center-align"></p>
       </form>
     </div>
   </div>
@@ -72,6 +78,7 @@
           <label for="login-password">Your password</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Login</button>
+        <p class="error pink-text center-align"></p>
       </form>
     </div>
   </div>
@@ -113,6 +120,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-functions.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -129,6 +137,8 @@
     // make auth and firestore references
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const functions = firebase.functions()
+   
 
     // update firestore settings
     db.settings({timestampsInSnapshots: true,merge: true});

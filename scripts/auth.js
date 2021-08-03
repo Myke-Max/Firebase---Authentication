@@ -1,3 +1,16 @@
+// // Add admin cloud function(need to pay)
+// const adminForm = document.querySelector('.admin-actions')
+// adminForm.addEventListener('submit', (e) => {
+//     e.preventDefault()
+//     const adminEmail = document.querySelector('#admin-email').value
+//     const addAdminRole = functions.httpsCallable('addAdminRole');
+//     addAdminRole({
+//         email:adminEmail
+//     }).then(res => {
+//         console.log(res)
+//     })
+// })
+
 
 // listen auth status change 'return null if user logout'
 
@@ -40,7 +53,10 @@ signupForm.addEventListener('submit', (e) => {
         const modal = document.querySelector('#modal-signup')
         // console.log(modal)
     M.Modal.getInstance(modal).close()
-    signupForm.reset()
+        signupForm.reset()
+         signupForm.querySelector('.error').innerHTML = ''
+    }).catch(err => {
+        signupForm.querySelector('.error').innerHTML = err.message
     })
 });
 
@@ -62,19 +78,25 @@ const loginForm = document.querySelector('#login-form');
 
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault()
-
+    // getUserInfo
     const email = loginForm['login-email'].value;
-    const password = loginForm['login-password'].value
+    const password = loginForm['login-password'].value;
 
-    auth.signInWithEmailAndPassword(email, password)
-
-    // close and clear form
-
-    const modal = document.querySelector('#modal-login')
+    auth.signInWithEmailAndPassword(email, password).then(cred => {
+        // close and clear form
+const modal = document.querySelector('#modal-login')
     M.Modal.getInstance(modal).close()
-    loginForm.reset()
-
+        loginForm.reset()
+        loginForm.querySelector('.error').innerHTML = ''
+    }).catch(err => {
+    console.log(err.message);
+     loginForm.querySelector('.error').innerHTML = err.message
 })
+
+    
+})
+
+// Create guide
 
 const createGuideForm = document.querySelector('#create-form');
 console.log(createGuideForm)
